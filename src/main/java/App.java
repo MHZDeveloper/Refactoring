@@ -18,7 +18,6 @@ public class App {
         List<Item> shoppingList = Arrays.asList(new Item(10), new Item(50), new Item(40));
 
         //initialize order
-
         Order order = new Order(shoppingList,"voucher");
 
         // calculate total
