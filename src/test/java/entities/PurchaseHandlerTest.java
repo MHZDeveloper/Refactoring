@@ -16,12 +16,11 @@ public class PurchaseHandlerTest {
     public void should_calculate_total_without_voucher_and_membership_and_not_in_TUN() {
         //given
         List<Item> items = Arrays.asList(new Item(40), new Item(10));
-        String voucher = "lol";
-        String membership = "SILVER";
-        String address = "address, US";
+        Order order = new Order(items,"lol");
+        Customer customer = new Customer("MHZ","SILVER","address, US");
 
         //when
-        double result = purchaseHandler.calculateTotal(items,voucher,membership,address);
+        double result = purchaseHandler.calculateTotal(order,customer);
 
         //then
         Assertions.assertThat(result).isEqualTo(80.0);
@@ -31,12 +30,11 @@ public class PurchaseHandlerTest {
     public void should_calculate_total_without_voucher_and_membership_and_in_TUN() {
         //given
         List<Item> items = Arrays.asList(new Item(40), new Item(10));
-        String voucher = "lol";
-        String membership = "SILVER";
-        String address = "address, TUN";
+        Order order = new Order(items,"lol");
+        Customer customer = new Customer("MHZ","SILVER","address, TUN");
 
         //when
-        double result = purchaseHandler.calculateTotal(items,voucher,membership,address);
+        double result = purchaseHandler.calculateTotal(order,customer);
 
         //then
         Assertions.assertThat(result).isEqualTo(60.0);
@@ -46,12 +44,11 @@ public class PurchaseHandlerTest {
     public void should_calculate_total_without_voucher_and_gold_membership() {
         //given
         List<Item> items = Arrays.asList(new Item(40), new Item(10));
-        String voucher = "lol";
-        String membership = "GOLD";
-        String address = "address, US";
+        Order order = new Order(items,"lol");
+        Customer customer = new Customer("MHZ","GOLD","address, US");
 
         //when
-        double result = purchaseHandler.calculateTotal(items,voucher,membership,address);
+        double result = purchaseHandler.calculateTotal(order,customer);
 
         //then
         Assertions.assertThat(result).isEqualTo(50.0);
@@ -61,12 +58,11 @@ public class PurchaseHandlerTest {
     public void should_calculate_total_voucher_and_gold_membership() {
         //given
         List<Item> items = Arrays.asList(new Item(40), new Item(10));
-        String voucher = "discount";
-        String membership = "GOLD";
-        String address = "address, US";
+        Order order = new Order(items,"discount");
+        Customer customer = new Customer("MHZ","GOLD","address, US");
 
         //when
-        double result = purchaseHandler.calculateTotal(items,voucher,membership,address);
+        double result = purchaseHandler.calculateTotal(order,customer);
 
         //then
         Assertions.assertThat(result).isEqualTo(47.5);
