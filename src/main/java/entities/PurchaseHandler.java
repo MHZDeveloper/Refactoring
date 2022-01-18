@@ -19,29 +19,53 @@ public class PurchaseHandler {
 
         double total = 0;
 
-        // sum up totals
-        for (Item item : items) {
-            total+= item.getPrice();
-        }
+        // ******* methods extracted************
 
-        // check voucher
-        if (voucher.equalsIgnoreCase("DISCOUNT") || voucher.equalsIgnoreCase("CHEAPER")) {
-            total = BigDecimal.valueOf(total*0.95).setScale(2).doubleValue();
+        total = sumItemPrices(items, total);
+
+        total = applyVoucher(voucher, total);
+
+        total = addDeliveryFee(membership, address, total);
+
+        // ******* methods extracted************
+
+        return total;
+    }
+
+    private double sumItemPrices(List<Item> items, double total) {
+        for (Item item : items) {
+            total += item.getPrice();
+        }
+        return total;
+    }
+
+    private double applyVoucher(String voucher, double total) {
+        if (isValidVoucher(voucher)) {
+            total = BigDecimal.valueOf(total *0.95).setScale(2).doubleValue();
         } else {
             System.out.println("Voucher Invalid");
         }
+        return total;
+    }
 
-        // handle delivery fee
-        if (membership.equalsIgnoreCase("GOLD")){
+    private boolean isValidVoucher(String voucher) {
+        return voucher.equalsIgnoreCase("DISCOUNT") || voucher.equalsIgnoreCase("CHEAPER");
+    }
+
+    private double addDeliveryFee(String membership, String address, double total) {
+        if (isGoldMembership(membership)){
             System.out.println("Gold membership");
         } else {
             if (address.contains("TUN")) {
-                total+=10;
+                total +=10;
             } else {
-                total+=30;
+                total +=30;
             }
         }
-
         return total;
+    }
+
+    private boolean isGoldMembership(String membership) {
+        return membership.equalsIgnoreCase("GOLD");
     }
 }
