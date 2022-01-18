@@ -7,6 +7,8 @@ import java.util.List;
 public class PurchaseHandler {
 
     private Period deliveryTimeWindow;
+    private DiscountManager discountManager = new DiscountManager();
+    private DeliveryManager deliveryManager = new DeliveryManager();
 
     public void setDeliveryTimeWindow (Period period) {
         this.deliveryTimeWindow = period;
@@ -25,9 +27,9 @@ public class PurchaseHandler {
 
         total = sumItemPrices(order.getItems(), total);
 
-        total = applyVoucher(order.getVoucher(), total);
+        total = discountManager.applyVoucher(order.getVoucher(), total);
 
-        total = addDeliveryFee(customer.getMembership(), customer.getAddress(), total);
+        total = deliveryManager.addDeliveryFee(customer.getMembership(), customer.getAddress(), total);
 
         // ******* methods extracted************
 
@@ -39,35 +41,5 @@ public class PurchaseHandler {
             total += item.getPrice();
         }
         return total;
-    }
-
-    private double applyVoucher(String voucher, double total) {
-        if (isValidVoucher(voucher)) {
-            total = BigDecimal.valueOf(total *0.95).setScale(2).doubleValue();
-        } else {
-            System.out.println("Voucher Invalid");
-        }
-        return total;
-    }
-
-    private boolean isValidVoucher(String voucher) {
-        return voucher.equalsIgnoreCase("DISCOUNT") || voucher.equalsIgnoreCase("CHEAPER");
-    }
-
-    private double addDeliveryFee(String membership, String address, double total) {
-        if (isGoldMembership(membership)){
-            System.out.println("Gold membership");
-        } else {
-            if (address.contains("TUN")) {
-                total +=10;
-            } else {
-                total +=30;
-            }
-        }
-        return total;
-    }
-
-    private boolean isGoldMembership(String membership) {
-        return membership.equalsIgnoreCase("GOLD");
     }
 }
