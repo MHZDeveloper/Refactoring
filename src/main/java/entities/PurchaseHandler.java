@@ -15,7 +15,7 @@ public class PurchaseHandler {
         System.out.println("the delivery time window is between "+this.deliveryStartDate+" and "+ this.deliveryEndDate);
     }
 
-    public double calculateTotal(List<Item> items, String voucher, String membership, String address) {
+    public double calculateTotal(List<Item> items, String voucher, Customer customer) {
 
         double total = 0;
 
@@ -25,7 +25,7 @@ public class PurchaseHandler {
 
         total = applyVoucher(voucher, total);
 
-        total = addDeliveryFee(membership, address, total);
+        total = addDeliveryFee(customer.getMembership(), customer.getAddress(), total);
 
         // ******* methods extracted************
 

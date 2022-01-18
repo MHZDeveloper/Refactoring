@@ -17,11 +17,10 @@ public class PurchaseHandlerTest {
         //given
         List<Item> items = Arrays.asList(new Item(40), new Item(10));
         String voucher = "lol";
-        String membership = "SILVER";
-        String address = "address, US";
+        Customer customer = new Customer("MHZ","SILVER","address, US");
 
         //when
-        double result = purchaseHandler.calculateTotal(items,voucher,membership,address);
+        double result = purchaseHandler.calculateTotal(items,voucher,customer);
 
         //then
         Assertions.assertThat(result).isEqualTo(80.0);
@@ -32,11 +31,10 @@ public class PurchaseHandlerTest {
         //given
         List<Item> items = Arrays.asList(new Item(40), new Item(10));
         String voucher = "lol";
-        String membership = "SILVER";
-        String address = "address, TUN";
+        Customer customer = new Customer("MHZ","SILVER","address, TUN");
 
         //when
-        double result = purchaseHandler.calculateTotal(items,voucher,membership,address);
+        double result = purchaseHandler.calculateTotal(items,voucher,customer);
 
         //then
         Assertions.assertThat(result).isEqualTo(60.0);
@@ -47,11 +45,10 @@ public class PurchaseHandlerTest {
         //given
         List<Item> items = Arrays.asList(new Item(40), new Item(10));
         String voucher = "lol";
-        String membership = "GOLD";
-        String address = "address, US";
+        Customer customer = new Customer("MHZ","GOLD","address, US");
 
         //when
-        double result = purchaseHandler.calculateTotal(items,voucher,membership,address);
+        double result = purchaseHandler.calculateTotal(items,voucher,customer);
 
         //then
         Assertions.assertThat(result).isEqualTo(50.0);
@@ -62,11 +59,10 @@ public class PurchaseHandlerTest {
         //given
         List<Item> items = Arrays.asList(new Item(40), new Item(10));
         String voucher = "discount";
-        String membership = "GOLD";
-        String address = "address, US";
+        Customer customer = new Customer("MHZ","GOLD","address, US");
 
         //when
-        double result = purchaseHandler.calculateTotal(items,voucher,membership,address);
+        double result = purchaseHandler.calculateTotal(items,voucher,customer);
 
         //then
         Assertions.assertThat(result).isEqualTo(47.5);
