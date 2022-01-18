@@ -6,13 +6,15 @@ import java.util.List;
 
 public class PurchaseHandler {
 
-    private LocalDate deliveryStartDate;
-    private LocalDate deliveryEndDate;
+    private Period deliveryTimeWindow;
 
-    public void setDeliveryTimeWindow (LocalDate start, LocalDate end) {
-        this.deliveryStartDate = start;
-        this.deliveryEndDate= end;
-        System.out.println("the delivery time window is between "+this.deliveryStartDate+" and "+ this.deliveryEndDate);
+    public void setDeliveryTimeWindow (Period period) {
+        this.deliveryTimeWindow = period;
+        System.out.println("the delivery time window is between "+this.deliveryTimeWindow.getStartDate()+" and "+ this.deliveryTimeWindow.getEndDate());
+    }
+
+    public Period getDeliveryTimeWindow() {
+        return deliveryTimeWindow;
     }
 
     public double calculateTotal(Order order, Customer customer) {

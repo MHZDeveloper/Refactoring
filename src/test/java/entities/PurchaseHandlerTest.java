@@ -73,13 +73,14 @@ public class PurchaseHandlerTest {
         //given
         LocalDate start = LocalDate.of(2022, Month.JANUARY,20);
         LocalDate end = LocalDate.of(2022, Month.JANUARY,21);
+        Period period = new Period(start,end);
 
         //when
-        purchaseHandler.setDeliveryTimeWindow(start,end);
+        purchaseHandler.setDeliveryTimeWindow(period);
 
         //then
-        Assertions.assertThat(purchaseHandler)
-                .hasFieldOrPropertyWithValue("deliveryStartDate",start)
-                .hasFieldOrPropertyWithValue("deliveryEndDate",end);
+        Assertions.assertThat(purchaseHandler.getDeliveryTimeWindow())
+                .hasFieldOrPropertyWithValue("startDate",start)
+                .hasFieldOrPropertyWithValue("endDate",end);
     }
 }

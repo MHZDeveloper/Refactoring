@@ -1,7 +1,4 @@
-import entities.Customer;
-import entities.Item;
-import entities.Order;
-import entities.PurchaseHandler;
+import entities.*;
 
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -24,6 +21,7 @@ public class App {
         PurchaseHandler purchaseHandler = new PurchaseHandler();
         double total = purchaseHandler.calculateTotal(order,customer);
         System.out.println("Total is "+total);
-        purchaseHandler.setDeliveryTimeWindow(LocalDate.now().plusDays(1),LocalDate.now().plusDays(3));
+        Period period = new Period(LocalDate.now().plusDays(1),LocalDate.now().plusDays(3));
+        purchaseHandler.setDeliveryTimeWindow(period);
     }
 }
