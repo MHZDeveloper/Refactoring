@@ -1,5 +1,10 @@
 package entities;
 
+import entities.address.Address;
+import entities.address.Country;
+import entities.items.Item;
+import entities.items.Water;
+import entities.items.Wine;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
@@ -15,9 +20,10 @@ public class PurchaseHandlerTest {
     @Test
     public void should_calculate_total_without_voucher_and_membership_and_not_in_TUN() {
         //given
-        List<Item> items = Arrays.asList(new Item(40), new Item(10));
+        List<Item> items = Arrays.asList(new Wine(40), new Water(10));
         Order order = new Order(items,"lol");
-        Customer customer = new Customer("MHZ","SILVER","address, US");
+        Address address = new Address("address", Country.USA);
+        Customer customer = new Customer("MHZ","SILVER",address);
 
         //when
         double result = purchaseHandler.calculateTotal(order,customer);
@@ -29,23 +35,25 @@ public class PurchaseHandlerTest {
     @Test
     public void should_calculate_total_without_voucher_and_membership_and_in_TUN() {
         //given
-        List<Item> items = Arrays.asList(new Item(40), new Item(10));
+        List<Item> items = Arrays.asList(new Wine(40), new Water(10));
         Order order = new Order(items,"lol");
-        Customer customer = new Customer("MHZ","SILVER","address, TUN");
+        Address address = new Address("address", Country.TUNISIA);
+        Customer customer = new Customer("MHZ","SILVER",address);
 
         //when
         double result = purchaseHandler.calculateTotal(order,customer);
 
         //then
-        Assertions.assertThat(result).isEqualTo(60.0);
+        Assertions.assertThat(result).isEqualTo(55.0);
     }
 
     @Test
     public void should_calculate_total_without_voucher_and_gold_membership() {
         //given
-        List<Item> items = Arrays.asList(new Item(40), new Item(10));
+        List<Item> items = Arrays.asList(new Wine(40), new Water(10));
         Order order = new Order(items,"lol");
-        Customer customer = new Customer("MHZ","GOLD","address, US");
+        Address address = new Address("address", Country.USA);
+        Customer customer = new Customer("MHZ","GOLD",address);
 
         //when
         double result = purchaseHandler.calculateTotal(order,customer);
@@ -57,9 +65,10 @@ public class PurchaseHandlerTest {
     @Test
     public void should_calculate_total_voucher_and_gold_membership() {
         //given
-        List<Item> items = Arrays.asList(new Item(40), new Item(10));
+        List<Item> items = Arrays.asList(new Wine(40), new Water(10));
         Order order = new Order(items,"discount");
-        Customer customer = new Customer("MHZ","GOLD","address, US");
+        Address address = new Address("address", Country.USA);
+        Customer customer = new Customer("MHZ","GOLD",address);
 
         //when
         double result = purchaseHandler.calculateTotal(order,customer);

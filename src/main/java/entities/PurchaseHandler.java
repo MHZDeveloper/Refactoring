@@ -1,7 +1,8 @@
 package entities;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
+import entities.currency.Currency;
+import entities.items.Item;
+
 import java.util.List;
 
 public class PurchaseHandler {
@@ -17,6 +18,17 @@ public class PurchaseHandler {
 
     public Period getDeliveryTimeWindow() {
         return deliveryTimeWindow;
+    }
+
+    public double convertCurrencyFromTND(double price, Currency currencyTo) {
+        if (currencyTo.equals(Currency.TND))
+            return price;
+        else if (currencyTo.equals(Currency.EUR))
+            return price*0.31;
+        else if (currencyTo.equals(Currency.USD))
+            return price*0.34;
+        else
+            throw new IllegalArgumentException("Unknown Currency");
     }
 
     public double calculateTotal(Order order, Customer customer) {
