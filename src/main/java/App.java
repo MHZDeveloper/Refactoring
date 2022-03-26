@@ -29,7 +29,7 @@ public class App {
         PurchaseHandler purchaseHandler = new PurchaseHandler();
         double total = purchaseHandler.calculateTotal(order,customer);
         System.out.println("Total (TND) is "+total);
-        total = purchaseHandler.convertCurrencyFromTND(total, Currency.EUR);
+        total = Currency.EUR.convertFromTND(total);
         System.out.println("Total (EUR) is "+total);
         Period period = new Period(LocalDate.now().plusDays(1),LocalDate.now().plusDays(3));
         purchaseHandler.setDeliveryTimeWindow(period);
