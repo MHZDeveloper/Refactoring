@@ -8,8 +8,6 @@ public abstract class Item {
         this.price = price;
     }
 
-    public abstract boolean isRestrictedBeverage();
-
     public double getPrice() {
         return price;
     }

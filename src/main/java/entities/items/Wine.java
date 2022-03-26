@@ -1,13 +1,13 @@
 package entities.items;
 
-public class Wine extends Item{
+public class Wine extends Beverage{
 
     public Wine(double price) {
         super(price);
     }
 
     @Override
-    public boolean isRestrictedBeverage() {
+    public boolean isRestrictedItem() {
         return true;
     }
 }
