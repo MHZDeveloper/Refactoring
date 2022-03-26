@@ -1,7 +1,6 @@
 package entities;
 
 import entities.address.Address;
-import entities.address.Country;
 
 public class DeliveryManager {
 
@@ -9,13 +8,7 @@ public class DeliveryManager {
         if (isGoldMembership(membership)){
             System.out.println("Gold membership");
         } else {
-            if (address.getCountry().equals(Country.FRANCE)) {
-                total +=15;
-            } else if (address.getCountry().equals(Country.USA)|| address.getCountry().equals(Country.CANADA)) {
-                total +=30;
-            } else {
-                total +=5;
-            }
+            total += address.getCountry().getDeliveryFee();
         }
         return total;
     }
